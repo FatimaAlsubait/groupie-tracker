@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <a href="/" class="logo">Groupie<span>Tracker</span></a>
+        <p class="tagline">Bands, members and tour dates in one place</p>
+
+        <form class="search" action="/search" method="GET">
+            <input type="text" name="q" value="{{.Query}}" placeholder="Search a band or member...">
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+     <main class="container">
+        {{if .Query}}
+            <p class="results-info">
+                {{len .Artists}} result(s) for "<strong>{{.Query}}</strong>"
+                · <a href="/">Show all</a>
+            </p>
+        {{end}}
+
+        {{if .Artists}}
+            <section class="grid">
+                {{range .Artists}}
+                <article class="card">
+                    <a href="/artist?id={{.ID}}">
+                        <img src="{{.Image}}" alt="{{.Name}}">
+                        <div class="card-body">
+                            <h2>{{.Name}}</h2>
+                            <div class="badges">
+                                <span class="badge">Since {{.CreationDate}}</span>
+                                <span class="badge">{{len .Members}} member(s)</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                {{end}}
+            </section>
+        {{else}}
+            <div class="empty">
+                <p>No bands found.</p>
+                <a href="/" class="btn">Back to all bands</a>
+            </div>
+        {{end}}
+    </main>
+
+    <footer class="site-footer">Groupie Tracker · Reboot01</footer>
+
+</body>
+</html>

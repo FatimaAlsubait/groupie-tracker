@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Name}} · Groupie Tracker</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <a href="/" class="logo">Groupie<span>Tracker</span></a>
+    </header>
+
+    <main class="container">
+        <a href="/" class="back">← All artists</a>
+
+        <section class="artist">
+            <img class="artist-img" src="{{.Image}}" alt="{{.Name}}" loading="lazy">
+            <div class="artist-info">
+                <h1>{{.Name}}</h1>
+                <div class="badges">
+                    <span class="badge">Created {{.CreationDate}}</span>
+                    <span class="badge">First album {{.FirstAlbum}}</span>
+                </div>
+
+                <h2>Members</h2>
+                <ul class="members">
+                    {{range .Members}}<li>{{.}}</li>{{end}}
+                </ul>
+            </div>
+        </section>
+
+        <section class="concerts">
+            <h2>Concerts</h2>
+            <div class="concerts-grid">
+                {{range .Concerts}}
+                <div class="concert-card">
+                    <h3>{{.Location}}</h3>
+                    <ul>{{range .Dates}}<li>{{.}}</li>{{end}}</ul>
+                </div>
+                {{else}}
+                <p class="empty">No concerts listed.</p>
+                {{end}}
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">Groupie Tracker · Reboot01</footer>
+</body>
+</html>
